@@ -18,6 +18,7 @@ typedef iList* ilist; // Ponteiro de uma lista está definido como um tipo de va
 ilist new_list(); // Cria uma nova lista de imagens e armazena na memória
 void free_list(ilist l); // Libera a lista de imagens na memória
 int getsize_list(ilist l); // Obtem o tamanho da lista
+bool isnull_list(ilist l); // Verifica se a lista é nula
 bool print_list(ilist l); // Imprime a lista de imagens no terminal
 bool search_list(ilist l, int * position, char * search); // Pesquisa uma imagem na lista, retorna a sua posição
 bool insert_list(ilist l, int position, char * newimage); // Insere uma imagem na lista, dado a posição
