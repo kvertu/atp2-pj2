@@ -1,3 +1,6 @@
+#include <stdbool.h>
+#include <stdlib.h>
+
 typedef struct Image {
     char * name; // Nome do arquivo da imagem
     struct Image * next; // Ponteiro para a próxima imagem da lista
