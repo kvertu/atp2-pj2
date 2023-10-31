@@ -80,3 +80,44 @@ bool search_list(ilist l, int * position, char * search) {
     (*position) = -1;
     return true;
 }
+
+bool getvalue_list(ilist l, int pos, char * val) {
+    if (pos < 0 || pos > l->last) {
+        printf("ERRO: Indice fora do escopo da lista, operação falhou.\n");
+        return false;
+    } else {
+        image i = l->first;
+        for (int j = 1; j <= pos; j++) {
+            i = i->next;
+        }
+        val = i->name;
+        return true;
+    }
+}
+
+bool trocar_list(ilist l, int p1, int p2) {
+    if (p1 < 0 || p1 > l->last || p2 < 0 || p2 > l->last) {
+        printf("ERRO: Indices fora do escopo da lista, operação falhou.\n");
+        return false;
+    }
+
+    image i1 = l->first;
+    int j;
+    for (j = 1; j < p1; j++) {
+        i1 = i1->next;
+    }
+
+    image i2 = l->first;
+    for (j = 1; j < p2; j++) {
+        i2 = i2->next;
+    }
+
+    image aux = i1;
+    i1->next->next = i2->next->next;
+    i1->next = i2->next;
+
+    i2->next->next = aux->next->next;
+    i2->next = aux->next;
+
+    return true;
+}
