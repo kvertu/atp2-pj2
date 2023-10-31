@@ -1,7 +1,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-typedef struct Image {
+struct Image{
     char * name; // Nome do arquivo da imagem
     struct Image * next; // Ponteiro para a próxima imagem da lista
 };
@@ -24,7 +24,7 @@ bool print_list(ilist l); // Imprime a lista de imagens no terminal
 bool search_list(ilist l, int * position, char * search); // Pesquisa uma imagem na lista, retorna a sua posição (método lento)
 bool getvalue_list(ilist l, int pos, char * val); // Pesquisa uma imagem na lista, dado a sua posição
 bool trocar_list(ilist l, int p1, int p2); // Troca os itens das posições p1 e p2 entre si
-bool insert_list(ilist l, int position, char * newimage); // Insere uma imagem na lista, dado a posição
+bool insert_list(ilist l, int pos, char * newimage); // Insere uma imagem na lista, dado a posição
 bool insertfirst_list(ilist l, char * newimage); // Insere uma imagem no inicio na lista
 bool insertlast_list(ilist l, char * newimage); // Insere uma imagem no fim da lista
 bool removeatpos_list(ilist l, int position); // Remove uma imagem da lista, dado a sua posição

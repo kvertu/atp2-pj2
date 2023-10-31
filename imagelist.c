@@ -97,7 +97,7 @@ bool getvalue_list(ilist l, int pos, char * val) {
 
 bool trocar_list(ilist l, int p1, int p2) {
     if (p1 < 0 || p1 > l->last || p2 < 0 || p2 > l->last) {
-        printf("ERRO: Indices fora do escopo da lista, operação falhou.\n");
+        printf("ERRO: Indices fora do escopo da lista, operação cancelada.\n");
         return false;
     }
 
@@ -120,4 +120,34 @@ bool trocar_list(ilist l, int p1, int p2) {
     i2->next = aux->next;
 
     return true;
+}
+
+bool insert_list(ilist l, int pos, char * newimage) {
+    if (pos < 0 || pos > l->last + 1) {
+        printf("ERRO: Indices fora do escopo da lista, operação cancelada.\n");
+        return false;
+    }
+
+    l->last++;
+    image item = malloc(sizeof(struct Image));
+    item->name = newimage;
+    item->next = NULL;
+
+    if (pos == 0) {
+        item->next = l->first;
+        l->first = item;
+        return true;
+    }
+
+    image i = l->first;
+    for (int k = 0; k < pos - 1; k++) {
+        i = i->next;
+    }
+    item->next = i->next;
+    i->next = item;
+    return true;
+}
+
+bool insertfirst_list(ilist l, char * newimage) {
+    return insert_list(l, 0, newimage);
 }
