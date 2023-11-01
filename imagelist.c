@@ -92,10 +92,10 @@ bool getvalue_list(ilist l, int pos, char * val) {
         return false;
     } else {
         image i = l->first;
-        for (int j = 1; j <= pos; j++) {
+        for (int j = 0; j < pos; j++) {
             i = i->next;
         }
-        val = i->name;
+        strcpy(val, i->name);
         return true;
     }
 }
