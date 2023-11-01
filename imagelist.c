@@ -36,7 +36,7 @@ int getsize_list(ilist l) {
 }
 
 bool isnull_list(ilist l) {
-    return l != NULL;
+    return l == NULL;
 }
 
 bool isempty_list(ilist l) {
@@ -52,9 +52,12 @@ bool print_list(ilist l) {
         return false;
     } else {
         // Percorre a lista, imprimindo os nomes dos arquivos no terminal
-        for (image i = l->first; i != NULL; i = i->next) {
+        image i = l->first;
+        while (i != NULL) {
             printf("%s\n", i->name);
+            i = i->next;
         }
+        
         return true;
     }
 }
@@ -140,7 +143,9 @@ bool insert_list(ilist l, int pos, char * newimage) {
     }
 
     image i = l->first;
-    for (int k = 0; k < pos - 1; k++) {
+    int k = 0;
+    while (k < pos - 1) {
+        k++;
         i = i->next;
     }
     item->next = i->next;
