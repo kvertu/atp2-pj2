@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "include/imagelist.h"
+#define PATH_MAX 260 // Tamanho máximo de um nome de arquivo
 
 ilist new_list() {
     ilist l = malloc(sizeof(iList));
@@ -20,6 +21,7 @@ void free_list(ilist l) {
             // Passa pela lista removendo as imagens da memória um por um
             l->first = i->next;
             l->last--;
+            free(i->name);
             free(i);
         }
         free(l); // Por fim, libera a lista em si da memória
@@ -133,7 +135,8 @@ bool insert_list(ilist l, int pos, char * newimage) {
 
     l->last++;
     image item = malloc(sizeof(struct Image));
-    item->name = newimage;
+    item->name = malloc(sizeof(char) * PATH_MAX);
+    strcpy(item->name, newimage);
     item->next = NULL;
 
     if (pos == 0) {
@@ -177,6 +180,7 @@ bool removeatpos_list(ilist l, int pos) {
     if (pos == 0) {
         // Caso especial
         aux = l->first->next; // aux armazena o ponteiro para a imagem depois de first
+        free(l->first->name);
         free(l->first); // first é liberado na memória
         l->first = aux; // aux passa a ser a primeira imagem da lista
         return true;
@@ -189,6 +193,7 @@ bool removeatpos_list(ilist l, int pos) {
         aux = aux->next;
     }
     prev->next = aux->next; // Ponteiro de prev passa a apontar para a imagem depois de aux
+    free(aux->name);
     free(aux); // Aux é liberado na memória
     return true;
 }
@@ -220,13 +225,12 @@ bool save_list(char * filename, ilist l) {
 
     for (image i = l->first; i != NULL; i = i->next) {
         fwrite(i, sizeof(struct Image), 1, fsave);
+        fwrite(i->name, sizeof(char), PATH_MAX, fsave);
     }
     fclose(fsave);
     return true;
 }
 
-// TODO: Corrigir load_list
-// Obs: talvez o problema seja save_list, já que load_list retorna dados corrompidos. É possível que save_list não esteja armazenando os dados corretamente.
 bool load_list(char * filename, ilist l) {
     FILE * fload = fopen(filename, "rb");
     if (fload == NULL) {
@@ -244,13 +248,15 @@ bool load_list(char * filename, ilist l) {
         if (l->first == NULL) {
             // Caso para o primeiro elemento da lista
             l->first = malloc(sizeof(struct Image));
+            l->first->name = malloc(sizeof(char) * PATH_MAX);
             last_image = l->first;
         } else {
             // Caso para qualquer outro elemento
             last_image->next = malloc(sizeof(struct Image));
+            last_image->next->name = malloc(sizeof(char) * PATH_MAX);
             last_image = last_image->next;
         }
-        last_image->name = aux->name;
+        fread(last_image->name, sizeof(char), PATH_MAX, fload);
         last_image->next = NULL;
     }
 
