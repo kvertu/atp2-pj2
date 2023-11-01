@@ -45,3 +45,27 @@ bool str_vemantes(char * a, char * b) {
         return false; // Já que tama > tamb, b vem primeiro
     }
 }
+
+int separa(ilist l, int low, int up, bool (*comparar)(char *, char *)) {
+    char * piv, * aux;
+    getvalue_list(l, l->last, piv); // Pivô
+    int j = low; // Posição do particionamento
+    for (int k = low; k < up; k++) {
+        getvalue_list(l, k, aux);
+        if (comparar(piv, aux)) {
+            trocar_list(l, j, k);
+            j++;
+        }
+    }
+    trocar_list(l, j, up);
+    return j;
+}
+
+bool quick_sort(ilist l, int low, int up, bool (*comparar)(char *, char *)) {
+    if (low < up) {
+        int j;
+        j = separa(l, low, up, comparar);
+        quick_sort(l, low, j - 1, comparar); // Chamada para elementos à esquerda do pivô
+        quick_sort(l, j + 1, up, comparar); // Chamada para elementos à direita do pivô
+    }
+}
