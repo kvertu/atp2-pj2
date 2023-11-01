@@ -27,7 +27,7 @@ bool trocar_list(ilist l, int p1, int p2); // Troca os itens das posições p1 e
 bool insert_list(ilist l, int pos, char * newimage); // Insere uma imagem na lista, dado a posição
 bool insertfirst_list(ilist l, char * newimage); // Insere uma imagem no inicio na lista
 bool insertlast_list(ilist l, char * newimage); // Insere uma imagem no fim da lista
-bool removeatpos_list(ilist l, int position); // Remove uma imagem da lista, dado a sua posição
+bool removeatpos_list(ilist l, int pos); // Remove uma imagem da lista, dado a sua posição
 bool removebysearch_list(ilist l, char * search); // Remove uma imagem da lista, dado o seu nome
 bool save_list(char * filename, ilist l); // Armazena a lista de imagens em um arquivo
 bool load_list(char * filename, ilist l); // Carrega a lista de imagens de um arquivo

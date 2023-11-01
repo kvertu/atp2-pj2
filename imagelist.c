@@ -151,3 +151,102 @@ bool insert_list(ilist l, int pos, char * newimage) {
 bool insertfirst_list(ilist l, char * newimage) {
     return insert_list(l, 0, newimage);
 }
+
+bool insertlast_list(ilist l, char * newimage) {
+    return insert_list(l, l->last + 1, newimage);
+}
+
+bool removeatpos_list(ilist l, int pos) {
+    if (isempty_list(l)) {
+        printf("AVISO: A lista está vazia, não tem o que remover.\n");
+        return false;
+    }
+    if (pos < 0 || pos > l->last) {
+        printf("ERRO: Indices fora do escopo da lista, operação cancelada.\n");
+        return false;
+    }
+
+    image aux = NULL;
+    l->last--;
+
+    if (pos == 0) {
+        // Caso especial
+        aux = l->first->next; // aux armazena o ponteiro para a imagem depois de first
+        free(l->first); // first é liberado na memória
+        l->first = aux; // aux passa a ser a primeira imagem da lista
+        return true;
+    }
+
+    aux = l->first; // aux será usada para iterar sobre a lista
+    image prev = NULL; // Imagem anterior a aux;
+    for (int k = 0; k < pos; k++) {
+        prev = aux;
+        aux = aux->next;
+    }
+    prev->next = aux->next; // Ponteiro de prev passa a apontar para a imagem depois de aux
+    free(aux); // Aux é liberado na memória
+    return true;
+}
+
+bool removebysearch_list(ilist l, char * search) {
+    int pos = -1;
+    if (search_list(l, &pos, search)) {
+        if (pos == -1) {
+            printf("AVISO: Chave não encontrada, não tem o que remover.\n");
+            return false;
+        }
+        return removeatpos_list(l, pos);
+    }
+    printf("ERRO: Pesquisa retornou erro, operação cancelada.\n");
+    return false;
+}
+
+bool save_list(char * filename, ilist l) {
+    if (isempty_list(l)) {
+        printf("AVISO: Lista está vazia, nada para salvar.\n");
+        return false;
+    }
+
+    FILE * fsave = fopen(filename, "wb");
+    if (fsave == NULL) {
+        printf("ERRO: Não foi possível abrir o arquivo, operação cancelada.\n");
+        return false;
+    }
+
+    for (image i = l->first; i != NULL; i = i->next) {
+        fwrite(i, sizeof(struct Image), 1, fsave);
+    }
+    fclose(fsave);
+    return true;
+}
+
+bool load_list(char * filename, ilist l) {
+    FILE * fload = fopen(filename, "rb");
+    if (fload == NULL) {
+        printf("ERRO: Não foi possível abrir o arquivo, operação cancelada.\n");
+        return false;
+    }
+
+    image aux = malloc(sizeof(struct Image));
+    image last_image = NULL;
+
+    while (fread(aux, sizeof(struct Image), 1, fload)) {
+        // aux é usado para ler o conteudo do arquivo
+        // Quando é lido 0 bytes no fread, ele para de ler
+        l->last++;
+        if (l->first == NULL) {
+            // Caso para o primeiro elemento da lista
+            l->first = malloc(sizeof(struct Image));
+            last_image = l->first;
+        } else {
+            // Caso para qualquer outro elemento
+            last_image->next = malloc(sizeof(struct Image));
+            last_image = last_image->next;
+        }
+        last_image->name = aux->name;
+        last_image->next = NULL;
+    }
+
+    fclose(fload);
+    return true;
+}
