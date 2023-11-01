@@ -107,22 +107,30 @@ bool trocar_list(ilist l, int p1, int p2) {
     }
 
     image i1 = l->first;
-    int j;
-    for (j = 1; j < p1; j++) {
+    image i2 = l->first;
+
+    for (int i = 0; i < p1; i++) {
         i1 = i1->next;
     }
 
-    image i2 = l->first;
-    for (j = 1; j < p2; j++) {
+    for (int i = 0; i < p2; i++) {
         i2 = i2->next;
     }
 
-    image aux = i1;
-    i1->next->next = i2->next->next;
-    i1->next = i2->next;
+    // Solução preguiçosa e menos eficiente
+    char aux[PATH_MAX];
+    strcpy(aux, i1->name);
+    strcpy(i1->name, i2->name);
+    strcpy(i2->name, aux);
 
-    i2->next->next = aux->next->next;
-    i2->next = aux->next;
+    // Solução mais eficiente (não está funcionando, não sei porque)
+    // image aux = i2;
+    
+    // i2->next->next = i1->next->next;
+    // i2->next = i1->next;
+    
+    // i1->next->next = aux->next->next;
+    // i1->next = aux->next;
 
     return true;
 }
