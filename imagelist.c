@@ -225,6 +225,8 @@ bool save_list(char * filename, ilist l) {
     return true;
 }
 
+// TODO: Corrigir load_list
+// Obs: talvez o problema seja save_list, já que load_list retorna dados corrompidos. É possível que save_list não esteja armazenando os dados corretamente.
 bool load_list(char * filename, ilist l) {
     FILE * fload = fopen(filename, "rb");
     if (fload == NULL) {
