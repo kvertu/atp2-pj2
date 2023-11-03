@@ -109,28 +109,23 @@ bool trocar_list(ilist l, int p1, int p2) {
     image i1 = l->first;
     image i2 = l->first;
 
-    for (int i = 0; i < p1; i++) {
+    for (int i = 1; i < p1; i++) {
         i1 = i1->next;
     }
 
-    for (int i = 0; i < p2; i++) {
+    for (int i = 1; i < p2; i++) {
         i2 = i2->next;
     }
 
-    // Solução preguiçosa e menos eficiente
-    char aux[PATH_MAX];
-    strcpy(aux, i1->name);
-    strcpy(i1->name, i2->name);
-    strcpy(i2->name, aux);
-
-    // Solução mais eficiente (não está funcionando, não sei porque)
-    // image aux = i2;
+    // TODO: Troca de elementos não funciona quando uma das posições é zero, descobrir porque
+    image aux = i2->next;
+    image aux_next = i2->next->next;
     
-    // i2->next->next = i1->next->next;
-    // i2->next = i1->next;
+    i2->next->next = i1->next->next;
+    i2->next = i1->next;
     
-    // i1->next->next = aux->next->next;
-    // i1->next = aux->next;
+    i1->next->next = aux_next;
+    i1->next = aux;
 
     return true;
 }

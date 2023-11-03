@@ -7,7 +7,7 @@ int main() {
     load_list("test.bin", l);
     print_list(l);
     printf("\n");
-    quick_sort(l, 0, l->last, str_vemantes);
+    trocar_list(l, 2, l->last);
     print_list(l);
     free_list(l);
 
