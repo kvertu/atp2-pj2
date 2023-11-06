@@ -106,6 +106,10 @@ bool trocar_list(ilist l, int p1, int p2) {
         return false;
     }
 
+    if (p1 == p2)
+        // Se as duas posições são iguais, então não é necessário fazer nada
+        return true;
+
     image i1 = l->first;
     image i2 = l->first;
 
@@ -126,6 +130,15 @@ bool trocar_list(ilist l, int p1, int p2) {
     
     i1->next->next = aux_next;
     i1->next = aux;
+
+    if (p1 == 0) {
+        i2 = i1;
+        l->first = i2;
+    }
+    if (p2 == 0) {
+        i1 = i2;
+        l->first = i1;
+    }
 
     return true;
 }
