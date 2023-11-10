@@ -12,7 +12,7 @@ bool str_vemantes(char * a, char * b) {
     int tamb = strlen(b);
     long t = strcmp(a, b);
 
-    if (t > 0) {
+    if (t < 0) {
         // a vem antes
         return true;
     } else if (t == 0) {
@@ -72,16 +72,15 @@ int separa(ilist l, int low, int up, bool (*comparar)(char *, char *)) {
         }
     }
     trocar_list(l, j, up);
+
     return j;
 }
 
-bool quick_sort(ilist l, int low, int up, bool (*comparar)(char *, char *)) {
+void quick_sort(ilist l, int low, int up, bool (*comparar)(char *, char *)) {
     if (low < up) {
         int j;
         j = separa(l, low, up, comparar);
         quick_sort(l, low, j - 1, comparar); // Chamada para elementos à esquerda do pivô
         quick_sort(l, j + 1, up, comparar); // Chamada para elementos à direita do pivô
-        print_list(l);
-        printf("\n");
     }
 }

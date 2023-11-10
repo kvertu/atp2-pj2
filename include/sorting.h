@@ -4,4 +4,4 @@
 bool char_vemantes(char a, char b); // Determina qual caracter vem antes a partir da tabela ASCII
 bool str_vemantes(char * a, char * b); // Determina qual string vem antes na lista
 int separa(ilist l, int low, int up, bool (*comparar)(char *, char *)); // Função para pivoteamento da lista
-bool quick_sort(ilist l, int low, int up, bool (*comparar)(char *, char *));
+void quick_sort(ilist l, int low, int up, bool (*comparar)(char *, char *));
