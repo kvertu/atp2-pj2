@@ -7,8 +7,15 @@ int main() {
     load_list("test.bin", l);
     print_list(l);
     printf("\n");
-    quick_sort(l, 0, l->last, str_vemantes);
+    // insertion_sort(l, str_vemantes);
+    // print_list(l);
+    // trocar_list(l, 0, 1);
+    // printf("\n");
+    // trocar_list(l, 1, 2);
+    // printf("\n");
+    trocar_list(l, 2, 3);
     print_list(l);
+    printf("\n");
     free_list(l);
 
     return 0;

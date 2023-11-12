@@ -100,6 +100,7 @@ bool getvalue_list(ilist l, int pos, char * val) {
     }
 }
 
+// TODO: essa função dá destroi a lista quando uma posição é sucessora da outra, descobrir porque
 bool trocar_list(ilist l, int p1, int p2) {
     if (p1 < 0 || p1 > l->last || p2 < 0 || p2 > l->last) {
         // Caso as posições estejam fora do escopo da lista
