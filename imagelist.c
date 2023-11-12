@@ -55,9 +55,15 @@ bool print_list(ilist l) {
     } else {
         // Percorre a lista, imprimindo os nomes dos arquivos no terminal
         image i = l->first;
+        int j = -1;
         while (i != NULL) {
             printf("%s\n", i->name);
             i = i->next;
+            j++;
+            if (j > l->last) {
+                printf("AVISO: Impressão está demorando mais que o esperado, lista provavelmente está corrompida.\n");
+                break;
+            }
         }
         
         return true;
@@ -114,7 +120,7 @@ bool trocar_list(ilist l, int p1, int p2) {
 
     image i2 = l->first; // Ponteiro para o elemento em p2
     // Percorre a lista até o elemento antes de p2
-    for (int i = 0; i < p2 - 1; i++) {
+    for (int i = 0; i < p2; i++) {
         i2 = i2->next;
     }
 
@@ -137,7 +143,7 @@ bool trocar_list(ilist l, int p1, int p2) {
         // Caso geral
         image i1 = l->first; // Ponteiro para o elemento em p1
         // Percorre a lista até o elemento antes de p1
-        for (int i = 0; i < p1 - 1; i++) {
+        for (int i = 0; i < p1; i++) {
             i1 = i1->next;
         }
 
