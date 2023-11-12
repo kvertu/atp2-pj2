@@ -107,6 +107,7 @@ bool getvalue_list(ilist l, int pos, char * val) {
 }
 
 // TODO: essa função dá destroi a lista quando uma posição é sucessora da outra, descobrir porque
+// Agora ela perde o item na posição p2 por algum motivo
 bool trocar_list(ilist l, int p1, int p2) {
     if (p1 < 0 || p1 > l->last || p2 < 0 || p2 > l->last) {
         // Caso as posições estejam fora do escopo da lista
@@ -120,7 +121,7 @@ bool trocar_list(ilist l, int p1, int p2) {
 
     image i2 = l->first; // Ponteiro para o elemento em p2
     // Percorre a lista até o elemento antes de p2
-    for (int i = 0; i < p2; i++) {
+    for (int i = 1; i < p2; i++) {
         i2 = i2->next;
     }
 
@@ -143,15 +144,15 @@ bool trocar_list(ilist l, int p1, int p2) {
         // Caso geral
         image i1 = l->first; // Ponteiro para o elemento em p1
         // Percorre a lista até o elemento antes de p1
-        for (int i = 0; i < p1; i++) {
+        for (int i = 0; i < p1 - 1; i++) {
             i1 = i1->next;
         }
 
-        i2->next->next = i1->next->next;
         i2->next = i1->next;
+        i2->next->next = i1->next->next;
 
-        i1->next->next = auxn;
         i1->next = aux;
+        i1->next->next = auxn;
     }
 
     return true;
