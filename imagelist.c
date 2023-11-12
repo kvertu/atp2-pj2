@@ -121,7 +121,7 @@ bool trocar_list(ilist l, int p1, int p2) {
 
     image i2 = l->first; // Ponteiro para o elemento em p2
     // Percorre a lista até o elemento antes de p2
-    for (int i = 1; i < p2; i++) {
+    for (int i = 0; i < p2 - 1; i++) {
         i2 = i2->next;
     }
 
