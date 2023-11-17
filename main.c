@@ -13,7 +13,7 @@ int main() {
     // printf("\n");
     // trocar_list(l, 1, 2);
     // printf("\n");
-    trocar_list(l, 2, 3);
+    trocar_list(l, 1, 3);
     print_list(l);
     printf("\n");
     free_list(l);
