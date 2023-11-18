@@ -38,7 +38,7 @@ void inv(char * listname) {
         save_imgb(temp, &imagem);
         free_imgb(&imagem);
 
-        printf(" Pronto!");
+        printf(" Pronto!\n");
     }
 
     free_list(l);
@@ -63,7 +63,7 @@ void esph(char * listname) {
         save_imgb(temp, &imagem);
         free_imgb(&imagem);
 
-        printf(" Pronto!");
+        printf(" Pronto!\n");
     }
 
     free_list(l);
@@ -88,7 +88,7 @@ void espv(char * listname) {
         save_imgb(temp, &imagem);
         free_imgb(&imagem);
 
-        printf(" Pronto!");
+        printf(" Pronto!\n");
     }
 
     free_list(l);
@@ -169,7 +169,28 @@ void rm(char * listname, char * file) {
 }
 
 void lim(char * listname, int lim) {
+    ilist l = new_list();
 
+    if (!load_list(listname, l)) {
+        // Se não for possível carregar
+        printf("Erro ao carregar lista.\n");
+        free_list(l);
+    }
+
+    for (image i = l->first; i != NULL; i = i->next) {
+        printf("Processando arquivo %s...", i->name);
+
+        char * temp = "lim_";
+        imgb img = load_imgb(i->name);
+        strcat(temp, i->name);
+        limiar(&img, lim);
+        save_imgb(temp, &img);
+        free_imgb(&img);
+
+        printf(" Pronto!\n");
+    }
+
+    free_list(l);
 }
 
 int main(int argc, char * argv[]) {
@@ -200,7 +221,6 @@ int main(int argc, char * argv[]) {
         else if (strcmp(argv[2], "rm") == 0)
             rm(argv[1], argv[3]);
         else if (strcmp(argv[2], "lim") == 0)
-            // TODO: Fazer limiar
             lim(argv[1], atoi(argv[3]));
         else
             error();
