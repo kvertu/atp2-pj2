@@ -7,6 +7,7 @@ void helper() {
     printf("=-=-= GERENCIADOR DE IMAGENS =-=-=\n");
     printf("help: Mostra essa tela.\n");
     printf("[lista] create [arquivo]: Cria um arquivo de lista.\n");
+    printf("[lista] print: Imprime o conteudo da lista na tela.\n");
     printf("[lista] add [arquivo]: Adiciona um arquivo à lista.\n");
     printf("[lista] rm [arquivo]: Remove o arquivo da lista.\n");
     printf("[lista] inv: Inverte todos os arquivos da lista.\n");
@@ -31,7 +32,7 @@ void inv(char * listname) {
     for (image i = l->first; i != NULL; i = i->next) {
         printf("Processando arquivo %s...", i->name);
 
-        char * temp = "inv_";
+        char temp[PATH_MAX] = "inv_";
         imgb imagem = load_imgb(i->name);
         strcat(temp, i->name);
         inverter(&imagem);
@@ -56,7 +57,7 @@ void esph(char * listname) {
     for (image i = l->first; i != NULL; i = i->next) {
         printf("Processando arquivo %s...", i->name);
         
-        char * temp = "esph_";
+        char temp[PATH_MAX] = "esph_";
         imgb imagem = load_imgb(i->name);
         strcat(temp, i->name);
         espelhar_h(&imagem);
@@ -81,7 +82,7 @@ void espv(char * listname) {
     for (image i = l->first; i != NULL; i = i->next) {
         printf("Processando arquivo %s...", i->name);
         
-        char * temp = "espv_";
+        char temp[PATH_MAX] = "espv_";
         imgb imagem = load_imgb(i->name);
         strcat(temp, i->name);
         espelhar_v(&imagem);
@@ -175,12 +176,13 @@ void lim(char * listname, int lim) {
         // Se não for possível carregar
         printf("Erro ao carregar lista.\n");
         free_list(l);
+        return;
     }
 
     for (image i = l->first; i != NULL; i = i->next) {
         printf("Processando arquivo %s...", i->name);
 
-        char * temp = "lim_";
+        char temp[PATH_MAX] = "lim_";
         imgb img = load_imgb(i->name);
         strcat(temp, i->name);
         limiar(&img, lim);
@@ -189,6 +191,21 @@ void lim(char * listname, int lim) {
 
         printf(" Pronto!\n");
     }
+
+    free_list(l);
+}
+
+void printl(char * listname) {
+    ilist l = new_list();
+
+    if (!load_list(listname, l)) {
+        // Se não for possível carregar
+        printf("Erro ao carregar lista.\n");
+        free_list(l);
+        return;
+    }
+
+    print_list(l);
 
     free_list(l);
 }
@@ -210,6 +227,9 @@ int main(int argc, char * argv[]) {
         else if (strcmp(argv[2], "espv") == 0)
             // Espelhar verticalmente a lista
             espv(argv[1]);
+        else if (strcmp(argv[2], "print") == 0)
+            // Imprimir na tela a lista
+            printl(argv[1]);
         else
             error();       
     } else if (argc == 4) {
@@ -224,7 +244,8 @@ int main(int argc, char * argv[]) {
             lim(argv[1], atoi(argv[3]));
         else
             error();
-    }
+    } else
+        error();
 
     return 0;
 }
