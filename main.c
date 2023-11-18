@@ -149,13 +149,13 @@ void rm(char * listname, char * file) {
     }
 
     if (!removebysearch_list(l, file)) {
-        printf("Não foi possível remover a lista.\n");
+        printf("Esse item não existe na lista.\n");
         free_list(l);
         return;
     }
 
     if (getsize_list(l) == 0) {
-        printf("Lista só possui essa imagem, removendo a lista toda");
+        printf("Lista só possui essa imagem, removendo a lista toda.\n");
         remove(listname);
         free_list(l);
         return;
