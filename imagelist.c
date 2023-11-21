@@ -106,60 +106,33 @@ bool getvalue_list(ilist l, int pos, char * val) {
     }
 }
 
-// TODO: essa função dá destroi a lista quando nenhuma das posições são iguais a zero, descobrir porque
+// Existe uma forma mais eficiente de implementar a troca de elementos de listas dinâmicas simplesmente trocando os ponteiros das posições entre si.
+// Eu fiquei boa parte desse projeto tentando implementar justamente isso, mas sem sucesso.
 bool trocar_list(ilist l, int p1, int p2) {
-    if (p1 < 0 || p1 > l->last || p2 < 0 || p2 > l->last) {
-        // Caso as posições estejam fora do escopo da lista
-        printf("ERRO: Indices fora do escopo da lista, operação cancelada.\n");
+    char aux[PATH_MAX]; // String auxiliar
+    char * s1, * s2; // Strigns da lista
+    
+    if (p1 < 0 || p1 > l->last) {
+        // Verificar se a posição é valida
+        printf("ERRO: Primeiro indice fora do escopo da lista, operação cancelada.\n");
         return false;
     }
 
-    if (p1 == p2)
-        // Se as duas posições são iguais, então não é necessário fazer nada
-        return true;
-
-    if (p1 > p2)
-        // Se p1 é maior que p2, basta usar recursão
-        return trocar_list(l, p2, p1);
-
-    if (p1 == 0) {
-        // Caso especial para p1 == 0
-        image i2 = l->first;
-        for (int i = 0; i < p2 - 1; i++) {
-            i2 = i2->next;
-        }
-        
-        image aux, auxn; // Ponteiros auxiliares para a troca
-        aux = i2->next;
-        auxn = i2->next->next;
-
-        i2->next->next = l->first->next;
-        i2->next = l->first;
-
-        l->first->next = auxn;
-        l->first = aux;
-    } else {
-        image i1 = l->first; // Ponteiro para o elemento em p1
-        // Percorre a lista até o elemento de p1
-        for (int i = 0; i < p1 - 1; i++) {
-            i1 = i1->next;
-        }
-        image i2 = l->first;
-        // Percorre a lista até o elemento de p2
-        for (int i = 0; i < p2 - 1; i++) {
-            i2 = i2->next;
-        }
-        
-        image aux, auxn; // Ponteiros auxiliares para a troca
-        aux = i1->next;
-        auxn = i1->next->next;
-
-        i1->next = i2->next;
-        i1->next->next = i2->next->next;
-
-        i2->next = aux;
-        i2->next->next = auxn;
+    if (p2 < 0 || p2 > l->last) {
+        // Verificar se a posição é valida
+        printf("ERRO: Segundo indice fora do escopo da lista, operação cancelada.\n");
+        return false;
     }
+    
+    if (!(getvalue_list(l, p1, s1) && getvalue_list(l, p2, s2))) {
+        // Se qualquer uma dessas funções falhar, então não faça a troca
+        printf("ERRO: Não foi possível obter valores da lista.\n");
+        return false;
+    }
+
+    strcpy(aux, s1);
+    strcpy(s1, s2);
+    strcpy(s2, aux);
 
     return true;
 }
