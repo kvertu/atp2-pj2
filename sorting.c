@@ -69,7 +69,7 @@ void quick_sort(ilist l, int low, int up, bool (*comparar)(char *, char *)) {
         j = separa(l, low, up, comparar);
         quick_sort(l, low, j - 1, comparar); // Chamada para elementos à esquerda do pivô
         quick_sort(l, j + 1, up, comparar); // Chamada para elementos à direita do pivô
-        print_list(l);
-        printf("\n");
+        // print_list(l);
+        // printf("\n");
     }
 }
