@@ -116,7 +116,7 @@ void inverter(imgb * img) {
     }
 }
 
-void espelhar_h(imgb * img) {
+void espelhar_v(imgb * img) {
     // Verifica se imgb é nulo
     if (is_null_imgb(img)) {
         printf("Não é possível espelhar, matriz de pixels é nula.\n");
@@ -138,7 +138,7 @@ void espelhar_h(imgb * img) {
     }
 }
 
-void espelhar_v(imgb * img) {
+void espelhar_h(imgb * img) {
     // Verifica se imgb é nulo
     if (is_null_imgb(img)) {
         printf("Não é possível espelhar, matriz de pixels é nula.\n");
