@@ -32,14 +32,19 @@ void inv(char * listname) {
     for (image i = l->first; i != NULL; i = i->next) {
         printf("Processando arquivo %s...", i->name);
 
-        char temp[PATH_MAX] = "inv_";
         imgb imagem = load_imgb(i->name);
-        strcat(temp, i->name);
-        inverter(&imagem);
-        save_imgb(temp, &imagem);
-        free_imgb(&imagem);
+        if (is_null_imgb(&imagem)) {
+            // Se a imagem não foi encontrada
+            printf(" Não foi possível encontrar imagem, pulando.\n");
+        } else {
+            char temp[PATH_MAX] = "inv_";
+            strcat(temp, i->name);
+            inverter(&imagem);
+            save_imgb(temp, &imagem);
+            free_imgb(&imagem);
 
-        printf(" Pronto!\n");
+            printf(" Pronto!\n");
+        }
     }
 
     free_list(l);
@@ -57,14 +62,19 @@ void esph(char * listname) {
     for (image i = l->first; i != NULL; i = i->next) {
         printf("Processando arquivo %s...", i->name);
         
-        char temp[PATH_MAX] = "esph_";
         imgb imagem = load_imgb(i->name);
-        strcat(temp, i->name);
-        espelhar_h(&imagem);
-        save_imgb(temp, &imagem);
-        free_imgb(&imagem);
+        if (is_null_imgb(&imagem)) {
+            // Se a imagem não foi encontrada
+            printf(" Não foi possível encontrar imagem, pulando.\n");
+        } else {
+            char temp[PATH_MAX] = "esph_";
+            strcat(temp, i->name);
+            espelhar_h(&imagem);
+            save_imgb(temp, &imagem);
+            free_imgb(&imagem);
 
-        printf(" Pronto!\n");
+            printf(" Pronto!\n");
+        }
     }
 
     free_list(l);
@@ -82,14 +92,19 @@ void espv(char * listname) {
     for (image i = l->first; i != NULL; i = i->next) {
         printf("Processando arquivo %s...", i->name);
         
-        char temp[PATH_MAX] = "espv_";
         imgb imagem = load_imgb(i->name);
-        strcat(temp, i->name);
-        espelhar_v(&imagem);
-        save_imgb(temp, &imagem);
-        free_imgb(&imagem);
+        if (is_null_imgb(&imagem)) {
+            // Se a imagem não foi encontrada
+            printf(" Não foi possível encontrar imagem, pulando.\n");
+        } else {
+            char temp[PATH_MAX] = "espv_";
+            strcat(temp, i->name);
+            espelhar_v(&imagem);
+            save_imgb(temp, &imagem);
+            free_imgb(&imagem);
 
-        printf(" Pronto!\n");
+            printf(" Pronto!\n");
+        }
     }
 
     free_list(l);
@@ -97,6 +112,12 @@ void espv(char * listname) {
 
 void create(char * listname, char * firstfile) {
     ilist l = new_list();
+
+    if (strstr(firstfile, ".pgm") == NULL) {
+        // Se o arquivo não tem a extensão .pgm
+        printf("Esse programa suporta apenas arquivos .pgm.\n");
+        return;
+    }
 
     if (!insertfirst_list(l, firstfile)) {
         // Se a inserção não deu certo
@@ -115,6 +136,12 @@ void create(char * listname, char * firstfile) {
 
 void add(char * listname, char * file) {
     ilist l = new_list();
+
+    if (strstr(file, ".pgm") == NULL) {
+        // Se o arquivo não tem a extensão .pgm
+        printf("Esse programa suporta apenas arquivos .pgm.\n");
+        return;
+    }
 
     if (!load_list(listname, l)) {
         // Se o carregamento não deu certo
@@ -182,14 +209,19 @@ void lim(char * listname, int lim) {
     for (image i = l->first; i != NULL; i = i->next) {
         printf("Processando arquivo %s...", i->name);
 
-        char temp[PATH_MAX] = "lim_";
         imgb img = load_imgb(i->name);
-        strcat(temp, i->name);
-        limiar(&img, lim);
-        save_imgb(temp, &img);
-        free_imgb(&img);
+        if (is_null_imgb(&img)) {
+            // Se a imagem não foi encontrada
+            printf(" Não foi possível encontrar imagem, pulando.\n");
+        } else {
+            char temp[PATH_MAX] = "lim_";
+            strcat(temp, i->name);
+            limiar(&img, lim);
+            save_imgb(temp, &img);
+            free_imgb(&img);
 
-        printf(" Pronto!\n");
+            printf(" Pronto!\n");
+        }
     }
 
     free_list(l);
