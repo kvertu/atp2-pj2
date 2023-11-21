@@ -157,6 +157,9 @@ void add(char * listname, char * file) {
         return;
     }
 
+    quick_sort(l, 0, l->last, str_vemantes); // Ordena alfabéticamente a lista
+    // Só é necessário chamar essa função quando um item é adicionado a uma lista já existente
+
     if (!save_list(listname, l)) {
         // Se não deu pra salvar
         printf("Erro ao salvar alterações na lista.\n");
