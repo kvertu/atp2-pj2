@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 bool char_vemantes(char a, char b) {
-    return a <= b;
+    return a > b;
 }
 
 bool str_vemantes(char * a, char * b) {
@@ -45,25 +45,6 @@ bool str_vemantes(char * a, char * b) {
         // Se todos os caracteres verificados são iguais, então é decidido pelo tamanho
         return false; // Já que tama > tamb, b vem primeiro
     }
-}
-
-void insertion_sort(ilist l, bool (*comparar)(char *, char *)) {
-    bool ordenado;
-    char * current, * aux;
-
-    do {
-        ordenado = true;
-        for (int i = 1; i <= l->last; i++) {
-            printf("%d\n", i);
-            getvalue_list(l, i, current);
-            getvalue_list(l, i - 1, aux);
-            if (!comparar(aux, current)) {
-                trocar_list(l, i - 1, i);
-                ordenado = false;
-                break;
-            }
-        }
-    } while (!ordenado);
 }
 
 int separa(ilist l, int low, int up, bool (*comparar)(char *, char *)) {
