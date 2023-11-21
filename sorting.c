@@ -2,12 +2,12 @@
 #include "include/sorting.h"
 #include <stdio.h>
 
+// Ordenação para de funcionar quando um dos nomes dos arquivos contém _
 bool char_vemantes(char a, char b) {
     return a > b;
 }
 
 bool str_vemantes(char * a, char * b) {
-    // TODO: Refatorar esse código nojento
     int tama = strlen(a);
     int tamb = strlen(b);
     
@@ -69,5 +69,7 @@ void quick_sort(ilist l, int low, int up, bool (*comparar)(char *, char *)) {
         j = separa(l, low, up, comparar);
         quick_sort(l, low, j - 1, comparar); // Chamada para elementos à esquerda do pivô
         quick_sort(l, j + 1, up, comparar); // Chamada para elementos à direita do pivô
+        print_list(l);
+        printf("\n");
     }
 }
