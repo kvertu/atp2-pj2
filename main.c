@@ -267,12 +267,16 @@ int main(int argc, char * argv[]) {
     } else if (argc == 4) {
         // argv[1] é sempre o nome da lista
         if (strcmp(argv[2], "create") == 0)
+            // Cria uma lista
             create(argv[1], argv[3]);
         else if (strcmp(argv[2], "add") == 0)
+            // Adiciona um item à lista
             add(argv[1], argv[3]);
         else if (strcmp(argv[2], "rm") == 0)
+            // Remove um item da lista
             rm(argv[1], argv[3]);
         else if (strcmp(argv[2], "lim") == 0)
+            // Limiariza as imagens da lista
             lim(argv[1], atoi(argv[3]));
         else
             error();
