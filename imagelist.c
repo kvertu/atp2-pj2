@@ -110,7 +110,6 @@ bool getvalue_list(ilist l, int pos, char * val) {
 // Eu fiquei boa parte desse projeto tentando implementar justamente isso, mas sem sucesso.
 bool trocar_list(ilist l, int p1, int p2) {
     char aux[PATH_MAX]; // String auxiliar
-    char * s1, * s2; // Strigns da lista
     
     if (p1 < 0 || p1 > l->last) {
         // Verificar se a posição é valida
@@ -124,15 +123,21 @@ bool trocar_list(ilist l, int p1, int p2) {
         return false;
     }
     
-    if (!(getvalue_list(l, p1, s1) && getvalue_list(l, p2, s2))) {
-        // Se qualquer uma dessas funções falhar, então não faça a troca
-        printf("ERRO: Não foi possível obter valores da lista.\n");
-        return false;
+    // Passa pela lista até chegar em p1
+    image i1 = l->first;
+    for (int i = 0; i < p1; i++) {
+        i1 = i1->next;
     }
 
-    strcpy(aux, s1);
-    strcpy(s1, s2);
-    strcpy(s2, aux);
+    // Passa pela lista até chegar em p2
+    image i2 = l->first;
+    for (int i = 0; i < p2; i++) {
+        i2 = i2->next;
+    }
+
+    strcpy(aux, i1->name);
+    strcpy(i1->name, i2->name);
+    strcpy(i2->name, aux);
 
     return true;
 }
