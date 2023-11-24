@@ -150,6 +150,14 @@ void add(char * listname, char * file) {
         return;
     }
 
+    int p;
+    search_list(l, &p, file);
+    if (p != -1) {
+        // Esse arquivo já existe na lista
+        printf("Essa imagem já existe na lista.\n");
+        return;
+    }
+
     if (!insertfirst_list(l, file)) {
         // Se a inserção não deu certo
         printf("Erro ao inserir %s na lista.\n", file);

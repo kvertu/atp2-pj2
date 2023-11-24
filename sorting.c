@@ -4,7 +4,7 @@
 
 // Ordenação para de funcionar quando um dos nomes dos arquivos contém _
 bool char_vemantes(char a, char b) {
-    return a > b;
+    return a >= b;
 }
 
 bool str_vemantes(char * a, char * b) {
