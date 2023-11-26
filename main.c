@@ -1,9 +1,10 @@
-#define PATH_MAX 260
+#define PATH_MAX 260 // Tamanho máximo de um nome de arquivo
 #include <stdio.h>
 #include "include/sorting.h"
 #include "include/image.h"
 
 void helper() {
+    // Helper do programa
     printf("=-=-= GERENCIADOR DE IMAGENS =-=-=\n");
     printf("help: Mostra essa tela.\n");
     printf("[lista] create [arquivo]: Cria um arquivo de lista.\n");
@@ -17,6 +18,7 @@ void helper() {
 }
 
 void error() {
+    // Se o usuário escrever um comando inválido, isso aparece
     printf("Comando não encontrado, digite help para ajuda.\n");
 }
 
@@ -30,6 +32,7 @@ void inv(char * listname) {
     }
 
     for (image i = l->first; i != NULL; i = i->next) {
+        // Itera pela lista processando cada imagem
         printf("Processando arquivo %s...", i->name);
 
         imgb imagem = load_imgb(i->name);
@@ -60,6 +63,7 @@ void esph(char * listname) {
     }
 
     for (image i = l->first; i != NULL; i = i->next) {
+        // Itera pela lista processando cada imagem
         printf("Processando arquivo %s...", i->name);
         
         imgb imagem = load_imgb(i->name);
@@ -90,6 +94,7 @@ void espv(char * listname) {
     }
 
     for (image i = l->first; i != NULL; i = i->next) {
+        // Itera pela lista processando cada imagem
         printf("Processando arquivo %s...", i->name);
         
         imgb imagem = load_imgb(i->name);
@@ -187,12 +192,14 @@ void rm(char * listname, char * file) {
     }
 
     if (!removebysearch_list(l, file)) {
-        printf("Esse item não existe na lista.\n");
+        // Se a imagem não estiver na lista
+        printf("Essa imagem não existe na lista.\n");
         free_list(l);
         return;
     }
 
     if (getsize_list(l) == 0) {
+        // Se a lista ficar vazia depois da remoção
         printf("Lista só possui essa imagem, removendo a lista toda.\n");
         remove(listname);
         free_list(l);
@@ -218,6 +225,7 @@ void lim(char * listname, int lim) {
     }
 
     for (image i = l->first; i != NULL; i = i->next) {
+        // Itera pela lista processando cada imagem
         printf("Processando arquivo %s...", i->name);
 
         imgb img = load_imgb(i->name);

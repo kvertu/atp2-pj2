@@ -1,4 +1,4 @@
-#define PATH_MAX 260
+#define PATH_MAX 260 // Tamanho máximo de um nome de arquivo
 #include "include/sorting.h"
 #include <stdio.h>
 
