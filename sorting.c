@@ -47,6 +47,8 @@ bool str_vemantes(char * a, char * b) {
     }
 }
 
+// Funções de quick sort
+
 int separa(ilist l, int low, int up, bool (*comparar)(char *, char *)) {
     char piv[PATH_MAX], aux[PATH_MAX];
     getvalue_list(l, l->last, piv); // Pivô

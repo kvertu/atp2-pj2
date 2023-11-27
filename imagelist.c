@@ -4,7 +4,7 @@
 #define PATH_MAX 260 // Tamanho máximo de um nome de arquivo
 
 ilist new_list() {
-    ilist l = malloc(sizeof(iList));
+    ilist l = malloc(sizeof(iList)); // Alocação da memória para a lista
     
     if (l != NULL) {
         l->first = NULL;
@@ -38,10 +38,12 @@ int getsize_list(ilist l) {
 }
 
 bool isnull_list(ilist l) {
+    // Verifica se a lista é nula
     return l == NULL;
 }
 
 bool isempty_list(ilist l) {
+    // Verifica se a lista está vazia
     if (!isnull_list(l))
         return getsize_list(l) == 0; // Verifica se o tamanho da lista é 0;
     else
