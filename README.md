@@ -2,6 +2,9 @@
 Esse é o segundo projeto da disciplina de ATP2.
 Desenvolvido por Kayke Guilherme Vertu.
 
+<h1>Como compilar</h1>
+<code>gcc imagelist.c sorting.c image.c main.c -o imggen.o</code>
+
 <h1>Comandos</h1>
 
 <h3>help</h3>
