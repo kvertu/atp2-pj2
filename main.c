@@ -1,3 +1,8 @@
+/*
+    Algoritmos e Técnicas de Programação 2 - Projeto 2 - Gerenciador de Imagens
+
+    Desenvolvido por Kayke Guilherme Vertu
+*/
 #define PATH_MAX 260 // Tamanho máximo de um nome de arquivo
 #include <stdio.h>
 #include "include/sorting.h"
